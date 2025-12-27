@@ -12,7 +12,17 @@ function Home() {
 
     const handleEdit = (id) => {
         axios.get('http://localhost:3001/27.19')
-        .then(res => setTodos(result.data))
+        .then(res => {
+            location.reload();
+        })
+        .catch(err => console.log(err))
+    }
+
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:3001/delete/34.37/${id}`)
+        .then(res => {
+            location.reload();
+        })
         .catch(err => console.log(err))
     }
 
@@ -32,10 +42,11 @@ function Home() {
                             <BsFillCircleFill className='icon'></BsFillCircleFill>
                         : <BsCircleFill className='icon'/>
                         }
-                        <p>{todo.task}</p>
+                        <p className={todo.done ? "line_through" : ""}>{todo.task}</p>
                     </div>
                     <div>
-                        <span><BsFillTrashFill className='icon'/></span>
+                        <span><BsFillTrashFill className='icon'
+                            onClick={() => handleDelete(todo._id)}/></span>
                     </div>
                 </div>
             ))
